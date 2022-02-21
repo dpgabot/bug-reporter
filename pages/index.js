@@ -1,58 +1,56 @@
 export default function ReportBug() {
   return (
     <div>
-      <form class="form-horizontal">
+      <form action="/api/openIssue" method="POST" >
         <fieldset>
-          <legend>Bug Report form</legend>
+          <h1><legend>Bug Report form</legend></h1>
 
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="textinput">
+          <div >
+            <label for="textinput">
               What were you trying to do?
             </label>
-            <div class="col-md-5">
-              <input
-                id="textinput"
-                name="textinput"
+            <div >
+              <textarea
+                id="tryingToDo"
+                name="tryingToDo"
                 type="text"
                 placeholder=""
-                class="form-control input-md"
+               
                 required=""
-              ></input>
+              ></textarea>
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="textarea">
+          <div>
+            <label for="textarea">
               What were the results you were expecting?
             </label>
-            <div class="col-md-4">
+            <div>
               <textarea
-                class="form-control"
-                id="textarea"
-                name="textarea"
+                id="expectedBehaviour"
+                name="expectedBehaviour"
               ></textarea>
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="result">
+          <div>
+            <label for="result">
               What was the actual result?
             </label>
-            <div class="col-md-4">
+            <div>
               <textarea
-                class="form-control"
-                id="result"
-                name="result"
+                id="actualResult"
+                name="actualResult"
               ></textarea>
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="environment">
+          <div>
+            <label for="environment">
               Details of the environment (which browser, OS, etc.){" "}
             </label>
-            <div class="col-md-4">
-              <div class="checkbox">
+            <div >
+              <div >
                 <label for="environment-0">
                   <input
                     type="checkbox"
@@ -63,7 +61,7 @@ export default function ReportBug() {
                   Google Chrme
                 </label>
               </div>
-              <div class="checkbox">
+              <div >
                 <label for="environment-1">
                   <input
                     type="checkbox"
@@ -73,7 +71,7 @@ export default function ReportBug() {
                   ></input></label>
                   Microsoft Edge
               </div>
-              <div class="checkbox">
+              <div >
                 <label for="environment-2">
                   <input
                     type="checkbox"
@@ -84,7 +82,7 @@ export default function ReportBug() {
                   Mozilla Firefox
                 </label>
               </div>
-              <div class="checkbox">
+              <div >
                 <label for="environment-3">
                   <input
                     type="checkbox"
@@ -95,7 +93,7 @@ export default function ReportBug() {
                   Safari
                 </label>
               </div>
-              <div class="checkbox">
+              <div >
                 <label for="environment-4">
                   <input
                     type="checkbox"
@@ -106,7 +104,7 @@ export default function ReportBug() {
                   Windows
                 </label>
               </div>
-              <div class="checkbox">
+              <div >
                 <label for="environment-5">
                   <input
                     type="checkbox"
@@ -117,7 +115,7 @@ export default function ReportBug() {
                   Mac
                 </label>
               </div>
-              <div class="checkbox">
+              <div >
                 <label for="environment-6">
                   <input
                     type="checkbox"
@@ -131,31 +129,29 @@ export default function ReportBug() {
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="reproductionSteps">
+          <div>
+            <label for="reproductionSteps">
               Could you tell us the steps we can take to recreate the problem?{" "}
             </label>
-            <div class="col-md-4">
+            <div >
               <textarea
-                class="form-control"
                 id="reproductionSteps"
                 name="reproductionSteps"
               ></textarea>
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="email">
+          <div >
+            <label for="email">
               Contact details (in case you want to be reached after the bug is
               resolved)
             </label>
-            <div class="col-md-5">
+            <div >
               <input
                 id="email"
                 name="email"
                 type="text"
                 placeholder="email@me.com"
-                class="form-control input-md"
               ></input>
             </div>
           </div>
