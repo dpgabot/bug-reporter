@@ -50,6 +50,18 @@ export default async (req, res) => {
     });
     console.log("Octoresponse");
     console.log(octoResp);
-    res.redirect(`/thankYou?issueUrl=${octoResp.data.html_url}`);
+    // res.redirect(`/thankYou?issueUrl=${octoResp.data.html_url}`);
+    if(octoResp.data.html_url)
+    res.writeHead(302, {
+      'Location': `/thankYou?issueUrl=${octoResp.data.html_url}`
+    });
+    res.end();
+  }
+    else{
+      res.writeHead(302, {
+        'Location': `/submissionError`
+      });
+      res.end();
+    }
   }
 };
