@@ -48,18 +48,16 @@ export default async (req, res) => {
       body: buildIssueBody(values),
       assignees: ["dpgabot"],
     });
-    console.log("Octoresponse");
-    console.log(octoResp);
-    // res.redirect(`/thankYou?issueUrl=${octoResp.data.html_url}`);
-    if(octoResp.data.html_url)
-    res.writeHead(302, {
-      'Location': `/thankYou?issueUrl=${octoResp.data.html_url}`
-    });
-    res.end();
-  }
-    else{
+
+    if (octoResp.data.html_url) {
       res.writeHead(302, {
-        'Location': `/submissionError`
+        Location: `/thankYou?issueUrl=${octoResp.data.html_url}`,
+      });
+      res.end();
+    } else {
+      console.log(octoResp);
+      res.writeHead(302, {
+        Location: `/submissionError`,
       });
       res.end();
     }
