@@ -100,7 +100,6 @@ const form = (props) => {
                         <TextField
                             id="actualResults"
                             label="What was the actual result?"
-                            label="What were you trying to do?"
                             multiline
                             maxRows={4}
                             variant="standard"
@@ -138,7 +137,6 @@ const form = (props) => {
                         <TextField
                             id="stepsToReproduce"
                             label="Could you tell us the steps we can take to reproduce the problem?"
-                            label="What were you trying to do?"
                             multiline
                             maxRows={4}
                             variant="standard"
