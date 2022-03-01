@@ -1,5 +1,4 @@
 import { Octokit } from "@octokit/core";
-import { useRouter } from "next/router";
 
 const TOKEN = process.env.ACCESS_TOKEN;
 
@@ -18,19 +17,21 @@ const GITHUB_ASSIGNEES = process.env.GITHUB_ASSIGNEES
 function buildIssueBody(values) {
   return `
     ## What were you trying to do
-    ${values.tryingToDo}
+    ${values.toDo}
 
     ## Expected Behavior
-    ${values.expectedBehaviour}
+    ${values.expectedResults}
     
     ## Current Behavior
-    ${values.actualResult}
+    ${values.actualResults}
     
     ## Environment used
-    ${values.environment.toString}
+    ${values.environment}
     
     ## Steps to Reproduce
-    ${values.reproductionSteps}
+    ${values.stepsToReproduce}
+
+    Created on: _${values.date}_
     
     `;
 }
@@ -40,7 +41,7 @@ export default async (req, res) => {
   });
 
   if (req.method === "POST") {
-    let values = req.body;
+    let values = JSON.parse(req.body);
     let octoResp = await octokit.request("POST /repos/{owner}/{repo}/issues", {
       owner: GITHUB_OWNER,
       repo: GITHUB_REPO,
@@ -48,7 +49,6 @@ export default async (req, res) => {
       body: buildIssueBody(values),
       assignees: ["dpgabot"],
     });
-
     if (octoResp.data.html_url) {
       res.writeHead(302, {
         Location: `/thankYou?issueUrl=${octoResp.data.html_url}`,
@@ -61,5 +61,6 @@ export default async (req, res) => {
       });
       res.end();
     }
+
   }
 };
