@@ -63,7 +63,6 @@ const form = (props) => {
 
   return (
     <div>
-      
       <Box sx={{ marginTop: '3vh' }}
         autoComplete="off">
         <Typography variant="h4" component="div" gutterBottom>
@@ -80,7 +79,7 @@ const form = (props) => {
           requested in addition to what is collected through this form.
         </Typography>
 
-      </Box>
+      
       <Form onSubmit={handleSubmit} style={{ width: '100%' }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -200,11 +199,13 @@ const form = (props) => {
             >
               {!isSubmitting ? "Submit Bug Report" : "Submitting ..."}
             </Button>
+         
           </Grid>
+          <Grid item xs={12}/>
         </Grid>
 
       </Form>
-
+      </Box>
     </div>
   );
 };
