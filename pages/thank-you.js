@@ -32,7 +32,7 @@ const Post = () => {
             <CloseIcon />
           </IconButton>
           <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-            DPG Bug Reporter
+          DPG Bug Reporting Tool
           </Typography>
           <Button autoFocus color="inherit" onClick={handleClose}>
             exit
