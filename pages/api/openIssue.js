@@ -53,7 +53,7 @@ export default async (req, res) => {
       res.writeHead(302, {
         Location: `/thankYou?issueUrl=${octoResp.data.html_url}`,
       });
-      res.send(octoResp.data);
+      res.end();
     } else {
       console.log(octoResp);
       res.writeHead(302, {
