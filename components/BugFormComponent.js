@@ -1,7 +1,8 @@
 import React from "react";
-import { withFormik, Field, ErrorMessage } from "formik";
+import { withFormik, Form, Field, ErrorMessage } from "formik";
 
 import Grid from "@mui/material/Grid";
+import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -13,9 +14,8 @@ import { CheckboxWithLabel } from "formik-material-ui";
 
 import Router from "next/router";
 
-// export declare function useRouter(): NextRouter;
-
 import ValidationSchema from "../schema/schema";
+
 
 const environmentOptions = [
   {
@@ -62,12 +62,13 @@ const form = (props) => {
   } = props;
 
   return (
-    <div style={{ marginTop: "3vh" }}>
-      <form onSubmit={handleSubmit}>
+    <div>
+      
+      <Box sx={{ marginTop: '3vh' }}
+        autoComplete="off">
         <Typography variant="h4" component="div" gutterBottom>
-          DPG Bug Report Form
+          Bug Report Form
         </Typography>
-
         <Typography
           variant="subtitle1"
           gutterBottom
@@ -79,8 +80,10 @@ const form = (props) => {
           requested in addition to what is collected through this form.
         </Typography>
 
+      </Box>
+      <Form onSubmit={handleSubmit} style={{ width: '100%' }}>
         <Grid container spacing={2}>
-          <Grid item lg={12} xs={12} sm={12}>
+          <Grid item xs={12}>
             <TextField
               id="toDo"
               label="What were you trying to do?"
@@ -95,7 +98,8 @@ const form = (props) => {
               fullWidth
             />
           </Grid>
-          <Grid item lg={12} xs={12} sm={12}>
+
+          <Grid item xs={12}>
             <TextField
               id="expectedResults"
               label="What were the results you were expecting?"
@@ -108,7 +112,8 @@ const form = (props) => {
               fullWidth
             />
           </Grid>
-          <Grid item lg={12} xs={12} sm={12}>
+
+          <Grid item xs={12}>
             <TextField
               id="actualResults"
               label="What was the actual result?"
@@ -124,7 +129,8 @@ const form = (props) => {
             />
           </Grid>
 
-          <Grid item lg={12} xs={12} sm={12}>
+          <Grid item xs={12}>
+
             <FormControl component="fieldset" style={{ display: "flex" }}>
               <FormLabel component="legend">
                 Details of the environment (which browser, OS, etc.)
@@ -150,7 +156,7 @@ const form = (props) => {
             </FormControl>
           </Grid>
 
-          <Grid item lg={12} xs={12} sm={12}>
+          <Grid item xs={12}>
             <TextField
               id="stepsToReproduce"
               label="Could you tell us the steps we can take to reproduce the problem?"
@@ -170,7 +176,7 @@ const form = (props) => {
             />
           </Grid>
 
-          <Grid item lg={12} xs={12} sm={12}>
+          <Grid item xs={12}>
             <TextField
               id="email"
               label="Email (optional)"
@@ -184,7 +190,7 @@ const form = (props) => {
             />
           </Grid>
 
-          <Grid item xs={12} sm={12} style={{ paddingTop: "3vh" }}>
+          <Grid item xs={12}>
             <Button
               type="submit"
               fullWidth
@@ -196,7 +202,9 @@ const form = (props) => {
             </Button>
           </Grid>
         </Grid>
-      </form>
+
+      </Form>
+
     </div>
   );
 };
@@ -208,8 +216,7 @@ const BugFormComponent = withFormik({
     actualResults,
     environment,
     stepsToReproduce,
-    email,
-    date,
+    email
   }) => {
     return {
       toDo: toDo || "",
@@ -241,7 +248,7 @@ const BugFormComponent = withFormik({
       body: JSON.stringify(values),
     });
     if (response.status != 200) {
-      Router.push("/submissionError");
+      Router.push("/submission-error");
     } else {
       // Clear form fields after clicking submit
       setSubmitting(false);

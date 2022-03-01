@@ -9,7 +9,6 @@ import Typography from "@mui/material/Typography";
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
 const Post = () => {
