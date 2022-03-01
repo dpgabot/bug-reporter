@@ -138,7 +138,6 @@ const form = (props) => {
                     key={opt.value}
                     value={opt.value}
                     Label={{ label: opt.label }}
-                    helperText={touched.environment ? errors.environment : ""}
                     error={touched.environment && Boolean(errors.environment)}
                   />
                 ))}
@@ -190,10 +189,10 @@ const form = (props) => {
               type="submit"
               fullWidth
               variant="contained"
-              size="medium"
+              size="large"
               color="primary"
             >
-              Submit Bug Report
+              {!isSubmitting ? "Submit Bug Report" : "Submitting ..."}
             </Button>
           </Grid>
         </Grid>
@@ -233,28 +232,10 @@ const BugFormComponent = withFormik({
     date: new Date(),
   },
 
-  /* validationSchema: Yup.object().shape({
-        toDo: Yup.string()
-            .required("Required!")
-            .min(5, "Too Short!"),
-        expectedResults: Yup.string()
-            .required("Required!")
-            .min(5, "Too Short!"),
-        actualResults: Yup.string()
-            .required("Required!")
-            .min(5, "Too Short!"),
-        environment: Yup.array().min(1, 'Select atleast one environment used'),
-        stepsToReproduce: Yup.string()
-            .required("Required!")
-            .min(5, "Too Short!"),
-        email: Yup.string().email("Enter a valid email"),
-        date: Yup.date().default(() => new Date()),
-    }), */
-
   validationSchema: ValidationSchema,
 
   handleSubmit: async (values, { setSubmitting }) => {
-   
+    setSubmitting(true);
     let response = await fetch("/api/openIssue", {
       method: "POST",
       body: JSON.stringify(values),
@@ -263,6 +244,7 @@ const BugFormComponent = withFormik({
       Router.push("/submissionError");
     } else {
       // Clear form fields after clicking submit
+      setSubmitting(false);
       Router.push(response.url);
     }
   },
