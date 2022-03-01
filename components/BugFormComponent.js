@@ -188,7 +188,8 @@ const BugFormComponent = withFormik({
         actualResults,
         environment,
         stepsToReproduce,
-        email
+        email,
+        date
     }) => {
         return {
             toDo: toDo || "",
@@ -196,7 +197,8 @@ const BugFormComponent = withFormik({
             actualResults: actualResults || "",
             environment: environment || [],
             stepsToReproduce: stepsToReproduce || "",
-            email: email || ""
+            email: email || "",
+            date: new Date() || ""
         };
     },
 
@@ -207,6 +209,7 @@ const BugFormComponent = withFormik({
         environment: [],
         stepsToReproduce: "",
         email: "",
+        date: new Date(),
     },
 
     validationSchema: Yup.object().shape({
@@ -216,6 +219,7 @@ const BugFormComponent = withFormik({
         environment: Yup.array().min(1, 'Select atleast one environment used'),
         stepsToReproduce: Yup.string().required("Required!"),
         email: Yup.string().email("Enter a valid email"),
+        date: Yup.date().default(() => new Date()),
     }),
 
     handleSubmit: (values, { setSubmitting }) => {
