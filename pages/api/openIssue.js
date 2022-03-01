@@ -1,5 +1,4 @@
 import { Octokit } from "@octokit/core";
-import { useRouter } from "next/router";
 
 const TOKEN = process.env.ACCESS_TOKEN;
 
@@ -50,12 +49,11 @@ export default async (req, res) => {
       body: buildIssueBody(values),
       assignees: ["dpgabot"],
     });
-
     if (octoResp.data.html_url) {
       res.writeHead(302, {
         Location: `/thankYou?issueUrl=${octoResp.data.html_url}`,
       });
-      res.end();
+      res.send(octoResp.data);
     } else {
       console.log(octoResp);
       res.writeHead(302, {
@@ -63,5 +61,6 @@ export default async (req, res) => {
       });
       res.end();
     }
+
   }
 };

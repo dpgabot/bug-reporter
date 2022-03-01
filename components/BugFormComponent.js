@@ -11,6 +11,10 @@ import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 import { CheckboxWithLabel } from "formik-material-ui";
 
+import Router from "next/router";
+
+// export declare function useRouter(): NextRouter;
+
 import ValidationSchema from "../schema/schema";
 
 const environmentOptions = [
@@ -249,17 +253,18 @@ const BugFormComponent = withFormik({
 
   validationSchema: ValidationSchema,
 
-  handleSubmit: (values, { setSubmitting }) => {
-    /* setTimeout(() => {
-            // submit to the server
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-        }, 1000); */
-        // console.log(buildIssueBody(values))
-    fetch("/api/openIssue", {
+  handleSubmit: async (values, { setSubmitting }) => {
+   
+    let response = await fetch("/api/openIssue", {
       method: "POST",
       body: JSON.stringify(values),
     });
+    if (response.status != 200) {
+      Router.push("/submissionError");
+    } else {
+      // Clear form fields after clicking submit
+      Router.push(response.url);
+    }
   },
 })(form);
 
