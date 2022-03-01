@@ -1,6 +1,5 @@
 import React from "react";
 import { withFormik, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -11,6 +10,8 @@ import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import { CheckboxWithLabel } from "formik-material-ui";
+
+import ValidationSchema  from "../schema/schema"
 
 const environmentOptions = [
     {
@@ -188,7 +189,8 @@ const BugFormComponent = withFormik({
         actualResults,
         environment,
         stepsToReproduce,
-        email
+        email,
+        date
     }) => {
         return {
             toDo: toDo || "",
@@ -196,7 +198,8 @@ const BugFormComponent = withFormik({
             actualResults: actualResults || "",
             environment: environment || [],
             stepsToReproduce: stepsToReproduce || "",
-            email: email || ""
+            email: email || "",
+            date: new Date() || ""
         };
     },
 
@@ -207,16 +210,28 @@ const BugFormComponent = withFormik({
         environment: [],
         stepsToReproduce: "",
         email: "",
+        date: new Date(),
     },
 
-    validationSchema: Yup.object().shape({
-        toDo: Yup.string().required("Required!"),
-        expectedResults: Yup.string().required("Required!"),
-        actualResults: Yup.string().required("Required!"),
+    /* validationSchema: Yup.object().shape({
+        toDo: Yup.string()
+            .required("Required!")
+            .min(5, "Too Short!"),
+        expectedResults: Yup.string()
+            .required("Required!")
+            .min(5, "Too Short!"),
+        actualResults: Yup.string()
+            .required("Required!")
+            .min(5, "Too Short!"),
         environment: Yup.array().min(1, 'Select atleast one environment used'),
-        stepsToReproduce: Yup.string().required("Required!"),
+        stepsToReproduce: Yup.string()
+            .required("Required!")
+            .min(5, "Too Short!"),
         email: Yup.string().email("Enter a valid email"),
-    }),
+        date: Yup.date().default(() => new Date()),
+    }), */
+
+    validationSchema: ValidationSchema,
 
     handleSubmit: (values, { setSubmitting }) => {
         setTimeout(() => {
