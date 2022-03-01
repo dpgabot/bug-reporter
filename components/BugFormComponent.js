@@ -1,6 +1,5 @@
 import React from "react";
 import { withFormik, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -11,6 +10,8 @@ import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import { CheckboxWithLabel } from "formik-material-ui";
+
+import ValidationSchema  from "../schema/schema"
 
 const environmentOptions = [
     {
@@ -212,7 +213,7 @@ const BugFormComponent = withFormik({
         date: new Date(),
     },
 
-    validationSchema: Yup.object().shape({
+    /* validationSchema: Yup.object().shape({
         toDo: Yup.string()
             .required("Required!")
             .min(5, "Too Short!"),
@@ -228,7 +229,9 @@ const BugFormComponent = withFormik({
             .min(5, "Too Short!"),
         email: Yup.string().email("Enter a valid email"),
         date: Yup.date().default(() => new Date()),
-    }),
+    }), */
+
+    validationSchema: ValidationSchema,
 
     handleSubmit: (values, { setSubmitting }) => {
         setTimeout(() => {
