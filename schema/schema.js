@@ -18,5 +18,4 @@ const ValidationSchema = Yup.object().shape({
     date: Yup.date().default(() => new Date()),
 })
 
-
 export default ValidationSchema;

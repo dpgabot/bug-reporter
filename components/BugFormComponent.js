@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
@@ -170,10 +171,10 @@ const form = (props) => {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            size="medium"
+                            size="large"
                             color="primary"
                         >
-                            Submit Bug Report
+                            { !isSubmitting ? "Submit Bug Report" : <CircularProgress color="inherit" style= {{height: '2vh', width: '2vh' }} /> }
                         </Button>
                     </Grid>
                 </Grid>
@@ -189,8 +190,7 @@ const BugFormComponent = withFormik({
         actualResults,
         environment,
         stepsToReproduce,
-        email,
-        date
+        email
     }) => {
         return {
             toDo: toDo || "",
@@ -213,30 +213,14 @@ const BugFormComponent = withFormik({
         date: new Date(),
     },
 
-    /* validationSchema: Yup.object().shape({
-        toDo: Yup.string()
-            .required("Required!")
-            .min(5, "Too Short!"),
-        expectedResults: Yup.string()
-            .required("Required!")
-            .min(5, "Too Short!"),
-        actualResults: Yup.string()
-            .required("Required!")
-            .min(5, "Too Short!"),
-        environment: Yup.array().min(1, 'Select atleast one environment used'),
-        stepsToReproduce: Yup.string()
-            .required("Required!")
-            .min(5, "Too Short!"),
-        email: Yup.string().email("Enter a valid email"),
-        date: Yup.date().default(() => new Date()),
-    }), */
-
     validationSchema: ValidationSchema,
 
-    handleSubmit: (values, { setSubmitting }) => {
+    handleSubmit: (values, { resetForm, setSubmitting }) => {
         setTimeout(() => {
             // submit to the server
+            setSubmitting(true);
             alert(JSON.stringify(values, null, 2));
+            resetForm();
             setSubmitting(false);
         }, 1000);
     },
