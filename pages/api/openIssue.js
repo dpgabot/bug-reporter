@@ -51,13 +51,13 @@ export default async (req, res) => {
     });
     if (octoResp.data.html_url) {
       res.writeHead(302, {
-        Location: `/thankYou?issueUrl=${octoResp.data.html_url}`,
+        Location: `/thank-you?issueUrl=${octoResp.data.html_url}`,
       });
       res.end();
     } else {
       console.log(octoResp);
       res.writeHead(302, {
-        Location: `/submissionError`,
+        Location: `/submission-error`,
       });
       res.end();
     }
